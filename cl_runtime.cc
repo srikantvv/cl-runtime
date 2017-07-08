@@ -1159,7 +1159,11 @@ CL_API_SUFFIX__VERSION_1_0
     kernel->addOCLKernelOffsetArgs(5, 0);
 
     if (event) {
+#if 1
+        *event = hsa_signal_create();
+#else
         *event = new _cl_event();
+#endif
     }
 
     hsa_task->depends = (uint64_t)host_state;
@@ -1371,7 +1375,12 @@ CL_API_SUFFIX__VERSION_1_0
 
     for (cl_uint i = 0; i < num_events; ++i) {
         while (!event_list[i]->done) {
+            __builtin_ia32_monitor ((void *)&event_list[i]->done, 0, 0);
+#if 1
+            __builtin_ia32_mwait(0, 0);
+#else
             asm("hlt");
+#endif
         }
     }
     return CL_SUCCESS;

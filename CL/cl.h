@@ -112,6 +112,7 @@ typedef struct _cl_buffer_region {
     size_t                  size;
 } cl_buffer_region;
 
+#include "hsa.h"
 
 /******************************************************************************/
 

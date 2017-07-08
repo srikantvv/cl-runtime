@@ -28,7 +28,7 @@ GEM5_BASE ?= ../../gem5/src
 RUNTIME_SRCS = cl_runtime.cc
 HEADERS = cl_runtime.hh \
 		$(HSAIL_GPU)/hsa_kernel_info.hh $(HSAIL_GPU)/qstruct.hh
-CFLAGS = -D BUILD_CL_RUNTIME
+CFLAGS = -D BUILD_CL_RUNTIME -msse3
 
 ifeq ($(MODE), dbg)
     CFLAGS += -g -DDEBUG
